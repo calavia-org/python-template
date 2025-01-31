@@ -33,7 +33,7 @@ repos:
     rev: v2.7.1
     hooks:
       - id: prettier
-        stages: [commit]
+        stages: [pre-commit]
   - repo: https://github.com/rhysd/actionlint
     rev: v1.6.17
     hooks:
