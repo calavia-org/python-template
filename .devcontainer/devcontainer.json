@@ -1,32 +1,42 @@
 {
-	"name": "poetry3-poetry-pyenv",
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
-
-	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
-	// "features": {},
-
-	// 👇 Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// 👇 Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "",
-
-	// 👇 Configure tool-specific properties.
-	"customizations": {
-        "vscode": {
-            "extensions":[
-				"ms-python.python",
-				"njpwerner.autodocstring",
-				"ms-azuretools.vscode-docker"
-			]
-            }
-		},
-		"features": {
-			"ghcr.io/gvatsal60/dev-container-features/pre-commit:1": {}
-		}
-
-	// 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+  "name": "poetry3-poetry-pyenv",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  // 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
+  // "features": {},
+  // 👇 Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // 👇 Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": ".devcontainer/scripts/postCreate.sh",
+  // 👇 Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "files.eol": "\n",
+        "editor.formatOnSave": true,
+        "python.testing.pytestArgs": ["."],
+        "python.testing.unittestEnabled": false,
+        "python.testing.pytestEnabled": true,
+        "python.formatting.provider": "black",
+        "python.linting.mypyEnabled": true,
+        "python.linting.enabled": true
+      },
+      "extensions": [
+        "davidanson.vscode-markdownlint",
+        "esbenp.prettier-vscode",
+        "Gruntfuggly.todo-tree",
+        "mhutchie.git-graph",
+        "ms-azuretools.vscode-docker",
+        "ms-python.autopep8",
+        "ms-python.debugpy",
+        "ms-python.python",
+        "njpwerner.autodocstring",
+        "ms-vscode-remote.remote-containers",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  }
+  // 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
 }
