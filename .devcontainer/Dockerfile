@@ -8,6 +8,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get install -y build-essential --no-install-recommends make \
     ca-certificates \
+    gnupg \
+    lsb-release \
     git \
     libssl-dev \
     zlib1g-dev \
@@ -23,7 +25,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
     libxml2-dev \
     libxmlsec1-dev \
     libffi-dev \
-    liblzma-dev
+    liblzma-dev \
+    shellcheck
 
 # Python and poetry installation
 USER $USER
