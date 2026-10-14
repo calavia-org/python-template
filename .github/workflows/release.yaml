@@ -2,37 +2,26 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch: # enable manual release
+    branches: [main]
+  workflow_dispatch:
+
+# Semantic Release pushes a tag and publishes a GitHub Release, and comments on
+# the issues/PRs it closes, so it needs write access to all three scopes.
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: armand-sauzay/actions-python/lint@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: armand-sauzay/actions-python/test@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          test-flags: --version
-
   release:
-    name: Release
-    needs: [lint, test]
+    name: Semantic Release
     runs-on: ubuntu-latest
-    outputs:
-      new-release-published: ${{ steps.release.outputs.new-release-published }}
-      new-release-version: ${{ steps.release.outputs.new-release-version }}
     steps:
-      - uses: armand-sauzay/actions-python/release@v1
-        id: release
+      - uses: actions/checkout@v4
         with:
-          github-token: ${{ secrets.ADMIN_TOKEN || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADMIN_TOKEN || secrets.GITHUB_TOKEN }}
